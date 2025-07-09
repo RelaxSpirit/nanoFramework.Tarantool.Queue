@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>756c82b5-5923-4e41-83d6-b5b34a534d00</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>nanoFramework.Tarantool.Queue</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Interfaces\IAdminQueue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Interfaces\IQueue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Interfaces\ITube.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Queue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\PutTubeOptionsConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\QueueStateConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\QueueStatisticConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\QueueTubeStatisticConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\QueueTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StatisticCallsConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StatisticTasksConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\TubeCreationOptionsConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\TubeInfoConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\TubeTaskStateConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Enums\QueueState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Enums\QueueType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Enums\TubeTaskState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PuttingFiFoTtlTubeOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PuttingLimFiFoTtlTubeOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PuttingUtubeTtlTubeOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PuttingUtubeTubeOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\QueueStatistic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\QueueTubeStatistic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\TubeCreationOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\TubeInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\TubeOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\TubeTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PuttingCustomTubeOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QueueClientOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TarantoolQueueContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client\Tube.cs" />
+  </ItemGroup>
+</Project>

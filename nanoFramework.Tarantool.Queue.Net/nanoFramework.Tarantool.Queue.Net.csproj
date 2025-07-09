@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net8.0;net9.0</TargetFrameworks>
+    <!--<TargetFramework>net9.0</TargetFramework>-->
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <Import Project="..\Shared\Tarantool.Queue\Tarantool.Queue.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="nf.Tarantool" Version="1.0.40" />
+  </ItemGroup>
+
+</Project>
