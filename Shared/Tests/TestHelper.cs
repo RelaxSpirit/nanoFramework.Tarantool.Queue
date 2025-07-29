@@ -52,9 +52,6 @@ namespace nanoFramework.Tarantool.Queue.Tests
             clientOptions.GetNetworkStream = TarantoolQueueMockContext.Instanse.GetTarantoolStreamMock;
             
 #else
-            clientOptions.GetNetworkStream = TarantoolQueueMockContext.Instanse.GetTarantoolStreamMock;
-            clientOptions.RequestTimeout = 0;
-
             clientOptions.ConnectionOptions.WriteStreamBufferSize = writeStreamBufferSize;
             clientOptions.ConnectionOptions.ReadStreamBufferSize = readStreamBufferSize;
 #endif
