@@ -94,23 +94,23 @@ namespace nanoFramework.Tarantool.Queue.Model
         /// Number - limit size of the queue.
         /// Implements only <see cref="QueueType.LimFifoTtl"/> queue type.
         /// </summary>
-        public int Capacity
+        public ulong Capacity
         {
             get
             {
                 if (TryGetValue(CapacityConst, out object? value) && value != null)
                 {
-                    return (int)value;
+                    return (ulong)value;
                 }
                 else
                 {
-                    return int.MinValue;
+                    return ulong.MinValue;
                 }
             }
 
             set
             {
-                if (value != int.MinValue)
+                if (value != ulong.MinValue)
                 {
                     this[CapacityConst] = value;
                 }

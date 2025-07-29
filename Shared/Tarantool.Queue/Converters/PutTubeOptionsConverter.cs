@@ -21,7 +21,7 @@ namespace nanoFramework.Tarantool.Queue.Converters
 
         public void Write(object? value, [NotNull] IMessagePackWriter writer)
         {
-            if(value is TubeOptions tubeOptions)
+            if (value is TubeOptions tubeOptions)
             {
                 writer.WriteMapHeader((uint)tubeOptions.Count);
 
@@ -29,7 +29,7 @@ namespace nanoFramework.Tarantool.Queue.Converters
 
                 foreach (DictionaryEntry dictionaryEntry in tubeOptions)
                 {
-                    if(dictionaryEntry.Value == null)
+                    if (dictionaryEntry.Value == null)
                     {
                         throw new ArgumentNullException();
                     }

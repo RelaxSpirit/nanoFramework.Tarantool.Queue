@@ -12,7 +12,7 @@ namespace nanoFramework.Tarantool.Queue.Model
     public class PuttingFiFoTtlTubeOptions : TubeOptions
     {
 #nullable enable
-        private const string PRIORITY = "pri";
+        internal const string PRIORITY = "pri";
         internal const string TTL = "ttl";
         internal const string TTR = "ttr";
         internal const string DELAY = "delay";
@@ -63,7 +63,7 @@ namespace nanoFramework.Tarantool.Queue.Model
         {
             get
             {
-                return GetTimeSpanValue(TTL);
+                return GetTimeSpanValue(TTL, TimeSpan.MaxValue);
             }
 
             set
@@ -80,7 +80,7 @@ namespace nanoFramework.Tarantool.Queue.Model
         {
             get
             {
-                return GetTimeSpanValue(TTR);
+                return GetTimeSpanValue(TTR, Ttl);
             }
 
             set
@@ -96,7 +96,7 @@ namespace nanoFramework.Tarantool.Queue.Model
         {
             get
             {
-                return GetTimeSpanValue(DELAY);
+                return GetTimeSpanValue(DELAY, TimeSpan.Zero);
             }
 
             set

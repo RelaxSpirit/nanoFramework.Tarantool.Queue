@@ -41,6 +41,25 @@ namespace nanoFramework.Tarantool.Queue.Client
             }
         }
 
+        private static string QueueTypeToString(QueueType queueType)
+        {
+            switch (queueType)
+            {
+                case QueueType.Fifo:
+                    return "fifo";
+                case QueueType.FifoTtl:
+                    return "fifottl";
+                case QueueType.LimFifoTtl:
+                    return "limfifottl";
+                case QueueType.Utube:
+                    return "utube";
+                case QueueType.UtubeTtl:
+                    return "utubettl";
+                default:
+                    return "customtube";
+            }
+        }
+
         internal string Require { get; private set; }
 
 #nullable enable
@@ -103,25 +122,6 @@ namespace nanoFramework.Tarantool.Queue.Client
             }
             else
             {
-                static string QueueTypeToString(QueueType queueType)
-                {
-                    switch(queueType)
-                    {
-                        case QueueType.Fifo:
-                            return "fifo";
-                        case QueueType.FifoTtl:
-                            return "fifottl";
-                        case QueueType.LimFifoTtl:
-                            return "limfifottl";
-                        case QueueType.Utube:
-                            return "utube";
-                        case QueueType.UtubeTtl:
-                            return "utubettl";
-                            default:
-                            return "customtube";
-                    }
-                };
-
                 _box.Eval($"{Require}.create_tube('{tubeName}', '{QueueTypeToString(options.QueueType)}'{(options.Count > 0 ? $", {options}" : string.Empty)})");
 
                 var tubeInfo = GetTubeInfo(tubeName) ?? throw new Exception($"Error create tube '{tubeName}' at options {options}.");

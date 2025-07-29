@@ -9,6 +9,38 @@
     <Import_RootNamespace>Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\AuthenticationPacketConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\CallPacketConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\EmptyResponseConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\EvalPacketConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\IndexConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\IndexCreationOptionsConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\IndexPartConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\PutTubeOptionsConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\QueueStateConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\QueueStatisticConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\QueueTubeStatisticConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\TubeInfoConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\TubeTaskStateConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\QueueStatisticMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\QueueTubeStatisticMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\RequestHeaderConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\ResponsePacketConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\SelectPacketConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\SpaceConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Converters\SpaceFieldConverterMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\BoxInfoMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\DataResponseMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\EmptyResponseMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\IndexCreationOptionsMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\IndexMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\IndexPartMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\SpaceFieldMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\SpaceMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\Data\TubeInfoMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\QueueDriver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\TarantoolQueueMockContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\TarantoolStreamMock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)QueueTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestHelper.cs" />

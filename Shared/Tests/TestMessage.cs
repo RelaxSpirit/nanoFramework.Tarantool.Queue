@@ -4,12 +4,13 @@
 #if NANOFRAMEWORK_1_0
 using System;
 #endif
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
+using nanoFramework.MessagePack.Dto;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Helpers;
-
 #if NANOFRAMEWORK_1_0
 using nanoFramework.TestFramework;
 #endif
@@ -23,6 +24,28 @@ namespace nanoFramework.Tarantool.Queue.Tests
         internal DateTime SendDateTime { get; private set; } = DateTime.UtcNow;
 
         internal string MessageData { get; private set; } = "Hello nanoFramework!";
+
+        internal static TestMessage HashtableToTestMessage(Hashtable data)
+        {
+            TestMessage retValue = new TestMessage();
+            foreach (DictionaryEntry dictionaryEntry in data)
+            {
+                switch (dictionaryEntry.Key.ToString())
+                {
+                    case "MessageData":
+                        retValue.MessageData = dictionaryEntry.Value != null ? (string)dictionaryEntry.Value : string.Empty;
+                        break;
+                    case "SendDateTime":
+                        retValue.SendDateTime = dictionaryEntry.Value != null ? DateTime.UnixEpoch.AddTicks((long)(ulong)dictionaryEntry.Value) : DateTime.MinValue;
+                        break;
+                    case "MessageGuid":
+                        retValue.MessageGuid = dictionaryEntry.Value != null ? new Guid((byte[])(ArraySegment)dictionaryEntry.Value) : Guid.Empty;
+                        break;
+                }
+            }
+
+            return retValue;
+        }
 
         internal class TestMessageConverter : IConverter
         {

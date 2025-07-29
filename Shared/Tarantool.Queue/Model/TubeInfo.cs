@@ -10,12 +10,12 @@ namespace nanoFramework.Tarantool.Queue.Model
     {
 #nullable enable
         /// <summary>
-        /// Gets Gets <see cref="Tarantool.Queue"/> tube id.
+        /// Gets <see cref="Tarantool"/>.<see cref="Queue"/> tube id.
         /// </summary>
         public int TubeId { get; private set; }
 
         /// <summary>
-        /// Gets Gets <see cref="Tarantool.Queue"/> tube name.
+        /// Gets <see cref="Tarantool"/>.<see cref="Queue"/> tube name.
         /// </summary>
         public string Name { get; private set; } = string.Empty;
 

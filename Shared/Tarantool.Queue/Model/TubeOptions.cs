@@ -167,8 +167,9 @@ namespace nanoFramework.Tarantool.Queue.Model
         /// Gets TimeSpan value method.
         /// </summary>
         /// <param name="key">Option name.</param>
+        /// <param name="defaultValue">Default value.</param>
         /// <returns><see cref="TimeSpan"/> option value by option name.</returns>
-        protected TimeSpan GetTimeSpanValue(string key)
+        protected TimeSpan GetTimeSpanValue(string key, TimeSpan defaultValue)
         {
             if (TryGetValue(key, out object? value) && value != null)
             {
@@ -176,7 +177,7 @@ namespace nanoFramework.Tarantool.Queue.Model
             }
             else
             {
-                return TimeSpan.MinValue;
+                return defaultValue;
             }
         }
 
@@ -198,7 +199,7 @@ namespace nanoFramework.Tarantool.Queue.Model
         }
 
         /// <summary>
-        /// Override base method <see cref="object.ToString()"/>
+        /// Override base method <see cref="object.ToString()"/>.
         /// </summary>
         /// <returns>Options key value string.</returns>
         public override string ToString()
@@ -233,6 +234,15 @@ namespace nanoFramework.Tarantool.Queue.Model
             {
                 return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// Explicit to <see cref="Hashtable"/>.
+        /// </summary>
+        /// <param name="tubeOptions"><see cref="TubeOptions"/> instance.</param>
+        public static explicit operator Hashtable(TubeOptions tubeOptions)
+        {
+            return tubeOptions._options;
         }
     }
 }

@@ -10,7 +10,7 @@ using nanoFramework.Tarantool.Helpers;
 namespace nanoFramework.Tarantool.Queue.Model
 {
     /// <summary>
-    /// <see cref="Tarantool.Queue"/> tube statistic.
+    /// <see cref="Tarantool"/>.<see cref="Queue"/> tube statistic.
     /// </summary>
     public partial class QueueTubeStatistic
     {

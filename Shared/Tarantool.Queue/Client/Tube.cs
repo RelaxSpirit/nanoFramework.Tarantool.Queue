@@ -92,6 +92,14 @@ namespace nanoFramework.Tarantool.Queue.Client
         public QueueType TubeType { get; }
 
 #nullable enable
+        private static void CheckTubeType(QueueType tubeType, TubeOptions? tubePutOptions)
+        {
+            if (tubePutOptions != null && tubePutOptions.QueueType != tubeType)
+            {
+                throw new NotSupportedException($"Queue tube type {tubeType} das not supported putting option for queue tube type {tubePutOptions.QueueType}");
+            }
+        }
+
         public TubeTask? Ack(Type taskDataType, ulong taskId)
         {
             return GetTubeTask(_callStringTable[(int)CallName.Ack], taskId, taskDataType);
@@ -186,7 +194,7 @@ namespace nanoFramework.Tarantool.Queue.Client
 
         public TubeTask? Take(Type taskDataType, TimeSpan timeout, TubeOptions? opts = null)
         {
-            if(timeout == Timeout.InfiniteTimeSpan && opts == null)
+            if (timeout == Timeout.InfiniteTimeSpan && opts == null)
             {
                 return Take(taskDataType);
             }
@@ -197,7 +205,7 @@ namespace nanoFramework.Tarantool.Queue.Client
 
             TarantoolTuple tuple;
 
-            if(opts != null)
+            if (opts != null)
             {
                 tuple = TarantoolTuple.Create((ulong)timeout.TotalSeconds, opts);
             }
@@ -238,14 +246,6 @@ namespace nanoFramework.Tarantool.Queue.Client
             }
 
             return null;
-        }
-
-        private static void CheckTubeType(QueueType tubeType, TubeOptions? tubePutOptions)
-        {
-            if (tubePutOptions != null && tubePutOptions.QueueType != tubeType)
-            {
-                throw new NotSupportedException($"Queue tube type {tubeType} das not supported putting option for queue tube type {tubePutOptions.QueueType}");
-            }
         }
     }
 }

@@ -31,7 +31,7 @@ namespace nanoFramework.Tarantool.Queue.Model
         {
             get
             {
-                return GetTimeSpanValue(TIMEOUT);
+                return GetTimeSpanValue(TIMEOUT, TimeSpan.MaxValue);
             }
 
             set

@@ -4,7 +4,7 @@
 namespace nanoFramework.Tarantool.Queue.Model
 {
     /// <summary>
-    /// <see cref="Tarantool.Queue"/> tube statistic. 
+    /// <see cref="Tarantool"/>.<see cref="Queue"/> tube statistic. 
     /// Statistics are temporary, they are reset whenever the <see cref="Tarantool"/> server restarts.
     /// </summary>
     public partial class QueueTubeStatistic

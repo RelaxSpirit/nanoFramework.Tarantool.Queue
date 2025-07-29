@@ -25,7 +25,6 @@ namespace nanoFramework.Tarantool.Queue.Converters
 
             var stringConverter = ConverterContext.GetConverter(typeof(string));
             var boolConverter = ConverterContext.GetConverter(typeof(bool));
-            var intConverter = ConverterContext.GetConverter(typeof(int));
             var ulongConverter = ConverterContext.GetConverter(typeof(ulong));
 
             TubeCreationOptions tubeCreationOptions = TubeCreationOptions.GetTubeCreationOptions(QueueType.CustomTube);
@@ -40,7 +39,7 @@ namespace nanoFramework.Tarantool.Queue.Converters
                         tubeCreationOptions.IfNotExists = (bool)(boolConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
                         break;
                     case TubeCreationOptions.CapacityConst:
-                        tubeCreationOptions.Capacity = (int)(intConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
+                        tubeCreationOptions.Capacity = (ulong)(ulongConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
                         break;
                     case TubeCreationOptions.TemporaryConst:
                         tubeCreationOptions.Temporary = (bool)(boolConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
@@ -69,7 +68,6 @@ namespace nanoFramework.Tarantool.Queue.Converters
                 writer.WriteMapHeader((uint)tubeCreationOptions.Count);
                 var stringConverter = ConverterContext.GetConverter(typeof(string));
                 var boolConverter = ConverterContext.GetConverter(typeof(bool));
-                var intConverter = ConverterContext.GetConverter(typeof(int));
                 var ulongConverter = ConverterContext.GetConverter(typeof(ulong));
 
                 foreach (DictionaryEntry option in tubeCreationOptions)
@@ -78,7 +76,7 @@ namespace nanoFramework.Tarantool.Queue.Converters
                     switch (option.Key)
                     {
                         case TubeCreationOptions.CapacityConst:
-                            intConverter.Write(option.Value, writer);
+                            ulongConverter.Write(option.Value, writer);
                             break;
                         case TubeCreationOptions.IfNotExistsConst:
                         case TubeCreationOptions.TemporaryConst:

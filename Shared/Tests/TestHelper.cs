@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using nanoFramework.MessagePack;
+using nanoFramework.Tarantool.Tests.Mocks;
 using static nanoFramework.Tarantool.Queue.Tests.TestMessage;
 
 namespace nanoFramework.Tarantool.Queue.Tests
@@ -48,9 +49,12 @@ namespace nanoFramework.Tarantool.Queue.Tests
 #if NANOFRAMEWORK_1_0
             clientOptions.ConnectionOptions.WriteStreamBufferSize = writeStreamBufferSize > 512 ? 512 : writeStreamBufferSize;
             clientOptions.ConnectionOptions.ReadStreamBufferSize = readStreamBufferSize > 512 ? 512 : readStreamBufferSize;
-            ////clientOptions.GetNetworkStream = TarantoolMockContext.Instanse.GetTarantoolStreamMock;
+            clientOptions.GetNetworkStream = TarantoolQueueMockContext.Instanse.GetTarantoolStreamMock;
             
 #else
+            clientOptions.GetNetworkStream = TarantoolQueueMockContext.Instanse.GetTarantoolStreamMock;
+            clientOptions.RequestTimeout = 0;
+
             clientOptions.ConnectionOptions.WriteStreamBufferSize = writeStreamBufferSize;
             clientOptions.ConnectionOptions.ReadStreamBufferSize = readStreamBufferSize;
 #endif

@@ -35,7 +35,7 @@ namespace nanoFramework.Tarantool.Queue.Model
         {
             get
             {
-                return GetTimeSpanValue(PuttingFiFoTtlTubeOptions.TTL);
+                return GetTimeSpanValue(PuttingFiFoTtlTubeOptions.TTL, TimeSpan.MinValue);
             }
 
             set
@@ -52,7 +52,7 @@ namespace nanoFramework.Tarantool.Queue.Model
         {
             get
             {
-                return GetTimeSpanValue(PuttingFiFoTtlTubeOptions.TTR);
+                return GetTimeSpanValue(PuttingFiFoTtlTubeOptions.TTR, Ttl);
             }
 
             set
@@ -68,7 +68,7 @@ namespace nanoFramework.Tarantool.Queue.Model
         {
             get
             {
-                return GetTimeSpanValue(PuttingFiFoTtlTubeOptions.DELAY);
+                return GetTimeSpanValue(PuttingFiFoTtlTubeOptions.DELAY, TimeSpan.Zero);
             }
 
             set
