@@ -43,10 +43,10 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="nanoFramework.Tarantool\bin\Release\nanoFramework.Tarantool.Queue.*" target="lib\netnano1.0" />
-    <file src="nanoFramework.Tarantool.Net\bin\Release\netstandard2.1\nanoFramework.Tarantool.Queue.Net.*" target="lib\netstandard2.1" />
-    <file src="nanoFramework.Tarantool.Net\bin\Release\net8.0\nanoFramework.Tarantool.Queue.Net.*" target="lib\net8.0" />
-    <file src="nanoFramework.Tarantool.Net\bin\Release\net9.0\nanoFramework.Tarantool.Queue.Net.*" target="lib\net9.0" />
+    <file src="nanoFramework.Tarantool.Queue\bin\Release\nanoFramework.Tarantool.Queue.*" target="lib\netnano1.0" />
+    <file src="nanoFramework.Tarantool.Queue.Net\bin\Release\netstandard2.1\nanoFramework.Tarantool.Queue.Net.*" target="lib\netstandard2.1" />
+    <file src="nanoFramework.Tarantool.Queue.Net\bin\Release\net8.0\nanoFramework.Tarantool.Queue.Net.*" target="lib\net8.0" />
+    <file src="nanoFramework.Tarantool.Queue.Net\bin\Release\net9.0\nanoFramework.Tarantool.Queue.Net.*" target="lib\net9.0" />
     <file src="README.md" target="docs\" />
     <file src="LICENSE.md" target="" />
   </files>
