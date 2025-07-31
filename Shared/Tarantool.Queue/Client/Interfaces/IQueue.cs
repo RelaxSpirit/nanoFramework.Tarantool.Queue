@@ -33,5 +33,12 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// </summary>
         /// <returns>New instance of <see cref="QueueTubeStatistic"/></returns>
         QueueStatistic GetStatistics();
+        
+        /// <summary>
+        /// Gets <see cref="Tube"/> instance.
+        /// </summary>
+        /// <param name="tubeName">Tube name.</param>
+        /// <returns><see cref="ITube"/> interface.</returns>
+        ITube this[string tubeName] { get; }
     }
 }
