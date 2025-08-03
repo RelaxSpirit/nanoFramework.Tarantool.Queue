@@ -2,7 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using nanoFramework.MessagePack;
+#if NANOFRAMEWORK_1_0
 using nanoFramework.Tarantool.Tests.Mocks;
+#endif
 using static nanoFramework.Tarantool.Queue.Tests.TestMessage;
 
 namespace nanoFramework.Tarantool.Queue.Tests

@@ -28,10 +28,10 @@ namespace nanoFramework.Tarantool.Queue.Client
 
             Require = clientOptions.Require;
 
-            var responseData = _box.Call($"{Require}.identify", typeof(string[]));
-            if (responseData != null && responseData.Data[0] is string guidString)
+            var responseData = _box.Call($"{Require}.identify", typeof(QueueSessionIdentify));
+            if (responseData != null && responseData.Data[0] is QueueSessionIdentify queueSessionIdentify)
             {
-                SessionUuid = guidString;
+                SessionUuid = queueSessionIdentify.ToString();
             }
 
             var versionResponse = _box.Eval($"return {Require}._VERSION", typeof(string[]));

@@ -6,6 +6,7 @@ using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
 using nanoFramework.Tarantool.Converters;
 using nanoFramework.Tarantool.Model;
+using nanoFramework.Tarantool.Queue.Converters;
 using nanoFramework.Tarantool.Queue.Model;
 using nanoFramework.Tarantool.Queue.Model.Enums;
 using nanoFramework.Tarantool.Tests.Mocks.Converters;

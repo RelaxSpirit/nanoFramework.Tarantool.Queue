@@ -46,6 +46,8 @@ namespace nanoFramework.Tarantool.Queue
             ConverterContext.Add(typeof(PuttingUtubeTubeOptions), putTubeOptionsConverter);
             ConverterContext.Add(typeof(PuttingUtubeTtlTubeOptions), putTubeOptionsConverter);
             ConverterContext.Add(typeof(PuttingCustomTubeOptions), putTubeOptionsConverter);
+
+            ConverterContext.Add(typeof(QueueSessionIdentify), new QueueSessionIdentifyConverter());
         }
 
         /// <summary>
