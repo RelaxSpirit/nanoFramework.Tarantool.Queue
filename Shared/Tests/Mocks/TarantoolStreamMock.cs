@@ -598,7 +598,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks
             switch (functionName)
             {
                 case "queue.identify":
-                    MessagePackSerializer.Serialize(new DataResponseMock(TarantoolTuple.Create("&Z\n\x8E`\xF8\x98A\xABiq\xCE\xF3\x02i}")), writer);
+                    MessagePackSerializer.Serialize(new DataResponseMock(new QueueSessionIdentify("sGQ7c4iBfixOhyn+887skk8=")), writer);
                     break;
                 case "queue.statistics":
                     if (callRequest.Tuple != null && callRequest.Tuple.Length > 0 && callRequest.Tuple[0] is string statisticTubeName && TarantoolQueueMockContext.Instanse.queueStatistic.QueueTubesStatistic[statisticTubeName] is QueueTubeStatisticMock tubeStatisticMock)

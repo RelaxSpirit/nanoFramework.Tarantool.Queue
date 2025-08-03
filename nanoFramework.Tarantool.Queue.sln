@@ -24,6 +24,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Tests", "Shared\Tests\Tests
 EndProject
 Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "NFUnitTest", "NFUnitTest\NFUnitTest.nfproj", "{78373247-2931-42C6-9D53-CEEC400F1684}"
 EndProject
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.Tarantool.Queue.Benchmark", "nanoFramework.Tarantool.Queue.Benchmark\nanoFramework.Tarantool.Queue.Benchmark.nfproj", "{B748C55F-DC97-430F-8094-BDD93373C070}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,12 @@ Global
 		{78373247-2931-42C6-9D53-CEEC400F1684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78373247-2931-42C6-9D53-CEEC400F1684}.Release|Any CPU.Build.0 = Release|Any CPU
 		{78373247-2931-42C6-9D53-CEEC400F1684}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B748C55F-DC97-430F-8094-BDD93373C070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B748C55F-DC97-430F-8094-BDD93373C070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B748C55F-DC97-430F-8094-BDD93373C070}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B748C55F-DC97-430F-8094-BDD93373C070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B748C55F-DC97-430F-8094-BDD93373C070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B748C55F-DC97-430F-8094-BDD93373C070}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

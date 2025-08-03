@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Client\Interfaces\ITube.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client\Queue.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\PutTubeOptionsConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\QueueSessionIdentifyConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\QueueStateConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\QueueStatisticConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\QueueTubeStatisticConverter.cs" />
@@ -30,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\PuttingLimFiFoTtlTubeOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\PuttingUtubeTtlTubeOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\PuttingUtubeTubeOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\QueueSessionIdentify.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\QueueStatistic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\QueueTubeStatistic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\TubeCreationOptions.cs" />
