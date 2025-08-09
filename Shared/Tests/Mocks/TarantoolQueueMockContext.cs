@@ -6,7 +6,7 @@ using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
 using nanoFramework.Tarantool.Converters;
 using nanoFramework.Tarantool.Model;
-using nanoFramework.Tarantool.Queue.Converters;
+using nanoFramework.Tarantool.Queue;
 using nanoFramework.Tarantool.Queue.Model;
 using nanoFramework.Tarantool.Queue.Model.Enums;
 using nanoFramework.Tarantool.Tests.Mocks.Converters;
@@ -32,6 +32,8 @@ namespace nanoFramework.Tarantool.Tests.Mocks
 
         private TarantoolQueueMockContext()
         {
+            _ = TarantoolQueueContext.Instance;
+
             ConverterContext.Add(typeof(BoxInfoMock), new BoxInfoMock.BoxInfoConverterMock());
             ConverterContext.Add(typeof(SpaceMock), new SpaceConverterMock());
             ConverterContext.Add(typeof(SpaceMock[]), new SimpleArrayConverter(typeof(SpaceMock)));

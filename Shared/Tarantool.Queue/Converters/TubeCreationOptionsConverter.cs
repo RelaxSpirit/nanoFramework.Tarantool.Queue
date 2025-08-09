@@ -3,7 +3,6 @@
 
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Helpers;
@@ -23,9 +22,9 @@ namespace nanoFramework.Tarantool.Queue.Converters
                 return null;
             }
 
-            var stringConverter = ConverterContext.GetConverter(typeof(string));
-            var boolConverter = ConverterContext.GetConverter(typeof(bool));
-            var ulongConverter = ConverterContext.GetConverter(typeof(ulong));
+            var stringConverter = TarantoolQueueContext.Instance.StringConverter;
+            var boolConverter = TarantoolQueueContext.Instance.BoolConverter;
+            var ulongConverter = TarantoolQueueContext.Instance.UlongConverter;
 
             TubeCreationOptions tubeCreationOptions = TubeCreationOptions.GetTubeCreationOptions(QueueType.CustomTube);
 
@@ -66,9 +65,9 @@ namespace nanoFramework.Tarantool.Queue.Converters
             if (value is TubeCreationOptions tubeCreationOptions)
             {
                 writer.WriteMapHeader((uint)tubeCreationOptions.Count);
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
-                var boolConverter = ConverterContext.GetConverter(typeof(bool));
-                var ulongConverter = ConverterContext.GetConverter(typeof(ulong));
+                var stringConverter = TarantoolQueueContext.Instance.StringConverter;
+                var boolConverter = TarantoolQueueContext.Instance.BoolConverter;
+                var ulongConverter = TarantoolQueueContext.Instance.UlongConverter;
 
                 foreach (DictionaryEntry option in tubeCreationOptions)
                 {

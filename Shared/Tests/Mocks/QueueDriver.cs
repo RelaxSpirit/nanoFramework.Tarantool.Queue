@@ -22,7 +22,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks
         private readonly object _lockTasks = new object();
         private readonly object _lockStatistics = new object();
         private readonly Hashtable _tasks = new Hashtable();
-        private int _taskId = 0;
+        private int _taskId = -1;
 
         internal QueueDriver(int id, TubeCreationOptions creationOptions)
         {

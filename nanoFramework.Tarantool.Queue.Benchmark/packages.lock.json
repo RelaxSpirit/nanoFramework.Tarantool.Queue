@@ -82,9 +82,9 @@
       },
       "nf.Tarantool": {
         "type": "Direct",
-        "requested": "[1.0.43, 1.0.43]",
-        "resolved": "1.0.43",
-        "contentHash": "HfjBL6cTPcazKh7ayFAxxImj2tyy2dd432tNMNFe8RTB+Jyt8WcM5xyQ3kGjfPrEvxFHDYF0fOC7qVcsdNvIIg=="
+        "requested": "[1.0.45, 1.0.45]",
+        "resolved": "1.0.45",
+        "contentHash": "wtuWR4Xbw0UtM/KIuv6HwBuzT8XJ+q9zL4vppkGa3mMftgAOUvnEk9LRjYTjaIvCKBRoiRkbmjvI968pA87+bw=="
       }
     }
   }

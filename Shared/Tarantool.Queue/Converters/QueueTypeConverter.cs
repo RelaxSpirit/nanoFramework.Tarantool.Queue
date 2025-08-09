@@ -3,7 +3,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Helpers;
@@ -16,7 +15,7 @@ namespace nanoFramework.Tarantool.Queue.Converters
 #nullable enable
         public object? Read([NotNull] IMessagePackReader reader)
         {
-            var stringConverter = ConverterContext.GetConverter(typeof(string));
+            var stringConverter = TarantoolQueueContext.Instance.StringConverter;
             var stateString = (string)(stringConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
             
             switch (stateString)
@@ -40,7 +39,7 @@ namespace nanoFramework.Tarantool.Queue.Converters
         {
             if (value is QueueType queueType)
             {
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
+                var stringConverter = TarantoolQueueContext.Instance.StringConverter;
 
                 switch (queueType)
                 {

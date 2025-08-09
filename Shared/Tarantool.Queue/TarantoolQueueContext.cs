@@ -26,10 +26,15 @@ namespace nanoFramework.Tarantool.Queue
         /// </summary>
         private TarantoolQueueContext()
         {
+            _ = TarantoolContext.Instance;
             ConverterContext.Add(typeof(QueueState), new QueueStateConverter());
             ConverterContext.Add(typeof(TubeTaskState), new TubeTaskStateConverter());
-            ConverterContext.Add(typeof(TubeCreationOptions), new TubeCreationOptionsConverter());
-            ConverterContext.Add(typeof(QueueType), new QueueTypeConverter());
+
+            TubeCreationOptionsConverter = new TubeCreationOptionsConverter();
+            ConverterContext.Add(typeof(TubeCreationOptions), TubeCreationOptionsConverter);
+
+            QueueTypeConverter = new QueueTypeConverter();
+            ConverterContext.Add(typeof(QueueType), QueueTypeConverter);
 
             var queueStatisticConverter = new QueueStatisticConverter();
             ConverterContext.Add(typeof(QueueStatistic), queueStatisticConverter);
@@ -71,6 +76,18 @@ namespace nanoFramework.Tarantool.Queue
                 return _instance;
             }
         }
+
+        internal IConverter IntConverter { get; } = ConverterContext.GetConverter(typeof(int));
+
+        internal IConverter StringConverter { get; } = ConverterContext.GetConverter(typeof(string));
+
+        internal IConverter UlongConverter { get; } = ConverterContext.GetConverter(typeof(ulong));
+
+        internal IConverter BoolConverter { get; } = ConverterContext.GetConverter(typeof(bool));
+
+        internal IConverter QueueTypeConverter{ get; }
+
+        internal IConverter TubeCreationOptionsConverter{ get; }
 
         /// <summary>
         /// Gets new instance <see cref="Tarantool"/>.<see cref="Queue"/> <see cref="IQueue"/> interface.

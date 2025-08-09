@@ -10,7 +10,7 @@
   <Import Project="..\Shared\Tarantool.Queue\Tarantool.Queue.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="nf.Tarantool" Version="1.0.43" />
+    <PackageReference Include="nf.Tarantool" Version="1.0.45" />
   </ItemGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

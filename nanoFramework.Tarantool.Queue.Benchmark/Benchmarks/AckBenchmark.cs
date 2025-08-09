@@ -20,7 +20,8 @@ namespace nanoFramework.Tarantool.Queue.Benchmark.Benchmarks
         [Benchmark]
         public void AckTasksBenchmark()
         {
-            BenchmarkContext.Instance.Ack(_taskid++);
+            BenchmarkContext.Instance.Ack(_taskid);
+            _taskid++;
         }
     }
 }

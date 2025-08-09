@@ -1,13 +1,12 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Helpers;
 using nanoFramework.Tarantool.Queue.Model.Enums;
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace nanoFramework.Tarantool.Queue.Model
 {
@@ -29,10 +28,10 @@ namespace nanoFramework.Tarantool.Queue.Model
                     throw ExceptionHelper.InvalidArrayLength(Expected, actual);
                 }
 
-                var intConverter = ConverterContext.GetConverter(typeof(int));
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
-                var queueTypeConverter = ConverterContext.GetConverter(typeof(QueueType));
-                var tubeCreationOptionsConverter = ConverterContext.GetConverter(typeof(TubeCreationOptions));
+                var intConverter = TarantoolQueueContext.Instance.IntConverter;
+                var stringConverter = TarantoolQueueContext.Instance.StringConverter;
+                var queueTypeConverter = TarantoolQueueContext.Instance.QueueTypeConverter;
+                var tubeCreationOptionsConverter = TarantoolQueueContext.Instance.TubeCreationOptionsConverter;
 
                 TubeInfo tubeInfo = new TubeInfo();
 

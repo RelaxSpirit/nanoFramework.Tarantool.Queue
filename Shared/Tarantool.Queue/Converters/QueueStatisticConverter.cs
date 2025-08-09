@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Diagnostics.CodeAnalysis;
-using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Helpers;
@@ -23,7 +22,7 @@ namespace nanoFramework.Tarantool.Queue.Converters
                 return null;
             }
 
-            var stringConverter = ConverterContext.GetConverter(typeof(string));
+            var stringConverter = TarantoolQueueContext.Instance.StringConverter;
 
             QueueStatistic queueStatistic = new QueueStatistic();
 
