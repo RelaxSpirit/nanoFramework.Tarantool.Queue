@@ -105,14 +105,29 @@ namespace nanoFramework.Tarantool.Queue.Client
             return GetTubeTask(_callStringTable[(int)CallName.Ack], taskId, taskDataType);
         }
 
+        public void Ack(ulong taskId)
+        {
+            _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Ack], TarantoolTuple.Create(taskId));
+        }
+
         public TubeTask? Bury(Type taskDataType, ulong taskId)
         {
             return GetTubeTask(_callStringTable[(int)CallName.Bury], taskId, taskDataType);
         }
 
+        public void Bury(ulong taskId)
+        {
+            _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Bury], TarantoolTuple.Create(taskId));
+        }
+
         public TubeTask? Delete(Type taskDataType, ulong taskId)
         {
             return GetTubeTask(_callStringTable[(int)CallName.Delete], taskId, taskDataType);
+        }
+
+        public void Delete(ulong taskId)
+        {
+            _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Delete], TarantoolTuple.Create(taskId));
         }
 
         public QueueTubeStatistic GetStatistics()
@@ -161,6 +176,15 @@ namespace nanoFramework.Tarantool.Queue.Client
             throw new Exception("Message is not put in Tarantool.Queue tube.");
         }
 
+        public void PutWithEmptyResponse([NotNull] object data, TubeOptions? opts = null)
+        {
+            CheckTubeType(TubeType, opts);
+
+            var parameters = opts != null ? TarantoolTuple.Create(data, opts) : TarantoolTuple.Create(data);
+            
+            _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Put], parameters);
+        }
+
         public TubeTask? Release(Type taskDataType, ulong taskId, TubeOptions opts)
         {
             CheckTubeType(TubeType, opts);
@@ -175,9 +199,15 @@ namespace nanoFramework.Tarantool.Queue.Client
             return null;
         }
 
+        public void Release(ulong taskId, TubeOptions opts)
+        {
+            CheckTubeType(TubeType, opts);
+            _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Release], TarantoolTuple.Create(taskId, opts));
+        }
+
         public void ReleaseAll()
         {
-            _box.Call(_callStringTable[(int)CallName.ReleaseAll]);
+            _box.CallWithEmptyResponse(_callStringTable[(int)CallName.ReleaseAll], null);
         }
 
         public TubeTask? Take(Type taskDataType)
@@ -234,6 +264,11 @@ namespace nanoFramework.Tarantool.Queue.Client
             }
 
             return null;
+        }
+
+        public void Touch(ulong taskId, TimeSpan delta)
+        {
+            _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Touch], TarantoolTuple.Create(taskId, (long)delta.TotalSeconds));
         }
 
         private TubeTask? GetTubeTask(string callExpression, ulong taskId, Type taskDataType)

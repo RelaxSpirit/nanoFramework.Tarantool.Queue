@@ -29,6 +29,8 @@ namespace nanoFramework.Tarantool.Queue.Benchmark
             clientOptions.ConnectionOptions.ReadStreamBufferSize = 512;
             clientOptions.ConnectionOptions.ReadBoxInfoOnConnect = false;
             clientOptions.ConnectionOptions.ReadSchemaOnConnect = false;
+            clientOptions.ConnectionOptions.WriteThrottlePeriodInMs = 0;
+
             _queue = TarantoolQueueContext.Instance.GetQueue(clientOptions);
 
             _tube = _queue[TubeName];
@@ -55,7 +57,7 @@ namespace nanoFramework.Tarantool.Queue.Benchmark
 
         internal void Put()
         {
-            _tube.Put(_testMessage);
+            _tube.PutWithEmptyResponse(_testMessage);
         }
 
         internal void Take()
@@ -65,7 +67,12 @@ namespace nanoFramework.Tarantool.Queue.Benchmark
 
         internal void Ack(ulong taskId)
         {
-            _tube.Ack(_testMessageType, taskId);
+            _tube.Ack(taskId);
+        }
+
+        internal void CloseConnection()
+        {
+            _queue.Dispose();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using nanoFramework.Benchmark;
 using nanoFramework.Networking;
+using nanoFramework.Runtime.Native;
 using nanoFramework.Tarantool.Queue.Benchmark.Benchmarks;
 using nanoFramework.Tarantool.Queue.Client.Interfaces;
 using nanoFramework.Tarantool.Queue.Model;
@@ -26,15 +27,17 @@ namespace nanoFramework.Tarantool.Queue.Benchmark
             const string Ssid = "YourSSID";
             const string Password = "YourWifiPassword";
 
+            Console.WriteLine($"Run to target: {SystemInfo.TargetName}");
+
             CancellationTokenSource cs = new CancellationTokenSource(60000);
 
             var success = WifiNetworkHelper.ConnectDhcp(Ssid, Password, requiresDateTime: true, token: cs.Token);
             if (!success)
             {
-                Debug.WriteLine($"Can't connect to the network, error: {WifiNetworkHelper.Status}");
+                Console.WriteLine($"Can't connect to the network, error: {WifiNetworkHelper.Status}");
                 if (WifiNetworkHelper.HelperException != null)
                 {
-                    Debug.WriteLine($"ex: {WifiNetworkHelper.HelperException}");
+                    Console.WriteLine($"ex: {WifiNetworkHelper.HelperException}");
                 }
             }
             else
@@ -45,6 +48,7 @@ namespace nanoFramework.Tarantool.Queue.Benchmark
                 clientOptions.ConnectionOptions.ReadStreamBufferSize = 512;
                 clientOptions.ConnectionOptions.ReadBoxInfoOnConnect = false;
                 clientOptions.ConnectionOptions.ReadSchemaOnConnect = false;
+
                 using (IAdminQueue queue = TarantoolQueueContext.Instance.GetAdminQueue(clientOptions))
                 {
                     var tube = queue.CreateTube(BenchmarkContext.TubeName, TubeCreationOptions.GetTubeCreationOptions(QueueType.Fifo));
@@ -71,6 +75,8 @@ namespace nanoFramework.Tarantool.Queue.Benchmark
                 }
                 finally
                 {
+                    BenchmarkContext.Instance.CloseConnection();
+
                     using (IAdminQueue queue = TarantoolQueueContext.Instance.GetAdminQueue(clientOptions))
                     {
                         queue[BenchmarkContext.TubeName].ReleaseAll();

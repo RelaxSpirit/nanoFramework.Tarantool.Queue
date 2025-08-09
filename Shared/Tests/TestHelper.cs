@@ -9,18 +9,43 @@ using static nanoFramework.Tarantool.Queue.Tests.TestMessage;
 
 namespace nanoFramework.Tarantool.Queue.Tests
 {
-    internal static class TestHelper
+    internal class TestHelper
     {
-        static TestHelper()
+#nullable enable
+        private static TestHelper? _instanse = null;
+        private static object _locl = new object();
+
+        private TestHelper()
         {
             ConverterContext.Add(typeof(TestMessage), new TestMessageConverter());
         }
 
         /// <summary>
+        /// Gets instance of <see cref="TestHelper"/>
+        /// </summary>
+        internal static TestHelper Instance
+        {
+            get
+            {
+                if (_instanse == null)
+                {
+                    lock (_locl)
+                    {
+                        if (_instanse == null)
+                        {
+                            _instanse = new TestHelper();
+                        }
+                    }
+                }
+
+                return _instanse;
+            }
+        }
+
+        /// <summary>
         /// <see cref="Tarantool"/> instance ip or host name.
         /// </summary>
-#nullable enable
-        internal const string TarantoolHostIp = "192.168.1.116";
+        internal string TarantoolHostIp => "192.168.1.116";
 
         /// <summary>
         /// Gets client options method.
@@ -38,7 +63,7 @@ namespace nanoFramework.Tarantool.Queue.Tests
             int readStreamBufferSize = 8192,
             string? userData = null)
         {
-            string replicationSource = $"{TarantoolHostIp}:3301";
+            string replicationSource = $"{Instance.TarantoolHostIp}:3301";
 
             if (userData != null)
             {
@@ -48,6 +73,7 @@ namespace nanoFramework.Tarantool.Queue.Tests
             QueueClientOptions clientOptions = new QueueClientOptions(replicationSource);
             clientOptions.ConnectionOptions.ReadSchemaOnConnect = isReadSchemaOnConnect;
             clientOptions.ConnectionOptions.ReadBoxInfoOnConnect = isReadBoxInfoOnConnect;
+            clientOptions.ConnectionOptions.WriteThrottlePeriodInMs = 0;
 #if NANOFRAMEWORK_1_0
             clientOptions.ConnectionOptions.WriteStreamBufferSize = writeStreamBufferSize > 512 ? 512 : writeStreamBufferSize;
             clientOptions.ConnectionOptions.ReadStreamBufferSize = readStreamBufferSize > 512 ? 512 : readStreamBufferSize;

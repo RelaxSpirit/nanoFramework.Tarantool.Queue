@@ -70,9 +70,9 @@
       },
       "nf.Tarantool": {
         "type": "Direct",
-        "requested": "[1.0.41, 1.0.41]",
-        "resolved": "1.0.41",
-        "contentHash": "ctYQwRG1wVpOpSVec8DZkRhW88H5c5pEkQcwr1lo046le9DpXCkQYQgQvrCS+ObRei5HuqalXuDoXAAyV3OBew=="
+        "requested": "[1.0.45, 1.0.45]",
+        "resolved": "1.0.45",
+        "contentHash": "wtuWR4Xbw0UtM/KIuv6HwBuzT8XJ+q9zL4vppkGa3mMftgAOUvnEk9LRjYTjaIvCKBRoiRkbmjvI968pA87+bw=="
       }
     }
   }

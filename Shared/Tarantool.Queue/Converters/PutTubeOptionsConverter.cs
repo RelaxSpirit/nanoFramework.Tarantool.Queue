@@ -25,7 +25,7 @@ namespace nanoFramework.Tarantool.Queue.Converters
             {
                 writer.WriteMapHeader((uint)tubeOptions.Count);
 
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
+                var stringConverter = TarantoolQueueContext.Instance.StringConverter;
 
                 foreach (DictionaryEntry dictionaryEntry in tubeOptions)
                 {
