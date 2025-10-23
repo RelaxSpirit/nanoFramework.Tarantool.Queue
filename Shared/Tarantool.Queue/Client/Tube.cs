@@ -100,7 +100,7 @@ namespace nanoFramework.Tarantool.Queue.Client
             }
         }
 
-        public TubeTask? Ack(Type taskDataType, ulong taskId)
+        public TubeTask Ack(Type taskDataType, ulong taskId)
         {
             return GetTubeTask(_callStringTable[(int)CallName.Ack], taskId, taskDataType);
         }
@@ -110,7 +110,7 @@ namespace nanoFramework.Tarantool.Queue.Client
             _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Ack], TarantoolTuple.Create(taskId));
         }
 
-        public TubeTask? Bury(Type taskDataType, ulong taskId)
+        public TubeTask Bury(Type taskDataType, ulong taskId)
         {
             return GetTubeTask(_callStringTable[(int)CallName.Bury], taskId, taskDataType);
         }
@@ -120,7 +120,7 @@ namespace nanoFramework.Tarantool.Queue.Client
             _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Bury], TarantoolTuple.Create(taskId));
         }
 
-        public TubeTask? Delete(Type taskDataType, ulong taskId)
+        public TubeTask Delete(Type taskDataType, ulong taskId)
         {
             return GetTubeTask(_callStringTable[(int)CallName.Delete], taskId, taskDataType);
         }
@@ -156,7 +156,7 @@ namespace nanoFramework.Tarantool.Queue.Client
             }
         }
 
-        public TubeTask? Peek(Type taskDataType, ulong taskId)
+        public TubeTask Peek(Type taskDataType, ulong taskId)
         {
             return GetTubeTask(_callStringTable[(int)CallName.Peek], taskId, taskDataType);
         }
@@ -185,7 +185,7 @@ namespace nanoFramework.Tarantool.Queue.Client
             _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Put], parameters);
         }
 
-        public TubeTask? Release(Type taskDataType, ulong taskId, TubeOptions opts)
+        public TubeTask Release(Type taskDataType, ulong taskId, TubeOptions opts)
         {
             CheckTubeType(TubeType, opts);
 
@@ -196,7 +196,7 @@ namespace nanoFramework.Tarantool.Queue.Client
                 return TubeTask.GetTubeTask(tarantoolTuple);
             }
 
-            return null;
+            return default;
         }
 
         public void Release(ulong taskId, TubeOptions opts)
@@ -210,7 +210,7 @@ namespace nanoFramework.Tarantool.Queue.Client
             _box.CallWithEmptyResponse(_callStringTable[(int)CallName.ReleaseAll], null);
         }
 
-        public TubeTask? Take(Type taskDataType)
+        public TubeTask Take(Type taskDataType)
         {
             var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
             var responseData = _box.Call(_callStringTable[(int)CallName.Take], tupleArrayType);
@@ -219,10 +219,10 @@ namespace nanoFramework.Tarantool.Queue.Client
                 return TubeTask.GetTubeTask(tarantoolTuple);
             }
 
-            return null;
+            return default;
         }
 
-        public TubeTask? Take(Type taskDataType, TimeSpan timeout, TubeOptions? opts = null)
+        public TubeTask Take(Type taskDataType, TimeSpan timeout, TubeOptions? opts = null)
         {
             if (timeout == Timeout.InfiniteTimeSpan && opts == null)
             {
@@ -251,10 +251,10 @@ namespace nanoFramework.Tarantool.Queue.Client
                 return TubeTask.GetTubeTask(tarantoolTuple);
             }
 
-            return null;
+            return default;
         }
 
-        public TubeTask? Touch(Type taskDataType, ulong taskId, TimeSpan delta)
+        public TubeTask Touch(Type taskDataType, ulong taskId, TimeSpan delta)
         {
             var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
             var responseData = _box.Call(_callStringTable[(int)CallName.Touch], TarantoolTuple.Create(taskId, (long)delta.TotalSeconds), tupleArrayType);
@@ -263,7 +263,7 @@ namespace nanoFramework.Tarantool.Queue.Client
                 return TubeTask.GetTubeTask(tarantoolTuple);
             }
 
-            return null;
+            return default;
         }
 
         public void Touch(ulong taskId, TimeSpan delta)
@@ -271,7 +271,7 @@ namespace nanoFramework.Tarantool.Queue.Client
             _box.CallWithEmptyResponse(_callStringTable[(int)CallName.Touch], TarantoolTuple.Create(taskId, (long)delta.TotalSeconds));
         }
 
-        private TubeTask? GetTubeTask(string callExpression, ulong taskId, Type taskDataType)
+        private TubeTask GetTubeTask(string callExpression, ulong taskId, Type taskDataType)
         {
             var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
             var responseData = _box.Call(callExpression, TarantoolTuple.Create(taskId), tupleArrayType);
@@ -280,7 +280,7 @@ namespace nanoFramework.Tarantool.Queue.Client
                 return TubeTask.GetTubeTask(tarantoolTuple);
             }
 
-            return null;
+            return default;
         }
     }
 }

@@ -10,6 +10,11 @@ namespace nanoFramework.Tarantool.Queue.Model.Enums
     public enum TubeTaskState : ushort
     {
         /// <summary>
+        /// Empty, no task state
+        /// </summary>
+        _ = 0,
+
+        /// <summary>
         /// The task is ready for execution (the first consumer executing a take request will get it).
         /// </summary>
         READY = 'r',

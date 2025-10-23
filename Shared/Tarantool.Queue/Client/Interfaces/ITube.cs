@@ -62,7 +62,7 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// </summary>
         /// <param name="taskDataType">Type of <see cref="TubeTask.TaskData"/> by return.</param>
         /// <returns>New instance <see cref="TubeTask"/> or <see langword="null"/>.</returns>
-        TubeTask? Take(Type taskDataType);
+        TubeTask Take(Type taskDataType);
 
         /// <summary>
         /// The take request searches for a task in the queue or sub-queue (that is, a tuple in the queue's associated space) which has task_state = 'r' (ready),
@@ -72,7 +72,7 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// <param name="timeout">Taken task timeout in seconds. If there is no such task, and timeout was specified, then the job waits until a task becomes ready or the timeout expires.</param>
         /// <param name="opts">Takin options. Use optional to custom tube. Default <see langword="null"/>.</param>
         /// <returns>New instance <see cref="TubeTask"/> or <see langword="null"/>.</returns>
-        TubeTask? Take(Type taskDataType, TimeSpan timeout, TubeOptions? opts = null);
+        TubeTask Take(Type taskDataType, TimeSpan timeout, TubeOptions? opts = null);
 
         /// <summary>
         /// Acknowledging the completion of a task.
@@ -83,7 +83,7 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// <param name="taskDataType">Type of <see cref="TubeTask.TaskData"/> by return.</param>
         /// <param name="taskId">Task id.</param>
         /// <returns>New instance <see cref="TubeTask"/> or <see langword="null"/>.</returns>
-        TubeTask? Ack(Type taskDataType, ulong taskId);
+        TubeTask Ack(Type taskDataType, ulong taskId);
 
         /// <summary>
         /// Acknowledging the completion of a task.
@@ -101,7 +101,7 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// <param name="taskDataType">Type of <see cref="TubeTask.TaskData"/> by return.</param>
         /// <param name="taskId">Task id.</param>
         /// <returns>New instance <see cref="TubeTask"/> or <see langword="null"/>.</returns>
-        TubeTask? Delete(Type taskDataType, ulong taskId);
+        TubeTask Delete(Type taskDataType, ulong taskId);
 
         /// <summary>
         /// Deleting a task. Delete the task identified by task_id.
@@ -118,7 +118,7 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// <param name="taskId">Task id.</param>
         /// <param name="opts">Release options. Default <see langword="null"/>.</param>
         /// <returns>New instance <see cref="TubeTask"/> or <see langword="null"/>.</returns>
-        TubeTask? Release(Type taskDataType, ulong taskId, TubeOptions opts);
+        TubeTask Release(Type taskDataType, ulong taskId, TubeOptions opts);
 
         /// <summary>
         /// Releasing a task. Put the task back in the queue. A worker which has used 'take' to take a task, but cannot complete it, may make a release request instead of an ack request. Effectively, 'ack' implies successful completion of a taken task, and 'release' implies unsuccessful completion of a taken task.
@@ -135,7 +135,7 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// <param name="taskDataType">Type of <see cref="TubeTask.TaskData"/> by return.</param>
         /// <param name="taskId">Task id.</param>
         /// <returns>New instance <see cref="TubeTask"/> or <see langword="null"/>.</returns>
-        TubeTask? Bury(Type taskDataType, ulong taskId);
+        TubeTask Bury(Type taskDataType, ulong taskId);
 
         /// <summary>
         /// Burying a task. If it becomes clear that a task cannot be executed in the current circumstances, you can "bury" the task -- that is, disable it until the circumstances change.
@@ -157,7 +157,7 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// <param name="taskDataType">Type of <see cref="TubeTask.TaskData"/> by return.</param>
         /// <param name="taskId">Task id.</param>
         /// <returns>New instance <see cref="TubeTask"/> or <see langword="null"/>.</returns>
-        TubeTask? Peek(Type taskDataType, ulong taskId);
+        TubeTask Peek(Type taskDataType, ulong taskId);
 
         /// <summary>
         /// Increasing TTR and/or TTL for tasks. Useful if you can't predict in advance time needed to work on task.
@@ -168,7 +168,7 @@ namespace nanoFramework.Tarantool.Queue.Client.Interfaces
         /// <param name="taskId">Task id.</param>
         /// <param name="delta">Delta increasing.</param>
         /// <returns>New instance <see cref="TubeTask"/> or <see langword="null"/>.</returns>
-        TubeTask? Touch(Type taskDataType, ulong taskId, TimeSpan delta);
+        TubeTask Touch(Type taskDataType, ulong taskId, TimeSpan delta);
 
         /// <summary>
         /// Increasing TTR and/or TTL for tasks. Useful if you can't predict in advance time needed to work on task.

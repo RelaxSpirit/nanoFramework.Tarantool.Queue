@@ -10,7 +10,7 @@ namespace nanoFramework.Tarantool.Queue.Model
     /// <summary>
     /// <see cref="Tarantool"/>.<see cref="Queue"/> tube task.
     /// </summary>
-    public class TubeTask
+    public struct TubeTask
     {
 #nullable enable
         /// <summary>
