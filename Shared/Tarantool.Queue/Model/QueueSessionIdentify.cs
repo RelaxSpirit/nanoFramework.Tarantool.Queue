@@ -7,7 +7,7 @@ using nanoFramework.MessagePack.Dto;
 
 namespace nanoFramework.Tarantool.Queue.Model
 {
-    internal class QueueSessionIdentify
+    internal struct QueueSessionIdentify
     {
         private readonly string _identifyString;
 

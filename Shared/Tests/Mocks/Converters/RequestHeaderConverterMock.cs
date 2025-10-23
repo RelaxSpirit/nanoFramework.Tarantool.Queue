@@ -29,7 +29,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
             var codeConverter = ConverterContext.GetConverter(typeof(uint));
 
             CommandCode commandCode = CommandCode._;
-            RequestId? requestId = null;
+            RequestId requestId = RequestId.Empty;
 
             for (var i = 0; i < length; i++)
             {
@@ -45,7 +45,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                 }
             }
 
-            if (commandCode != CommandCode._ && requestId != null)
+            if (commandCode != CommandCode._ && requestId != RequestId.Empty)
             {
                 return new RequestHeader(commandCode, requestId);
             }
