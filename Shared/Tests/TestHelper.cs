@@ -2,9 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using nanoFramework.MessagePack;
-#if NANOFRAMEWORK_1_0
 using nanoFramework.Tarantool.Tests.Mocks;
-#endif
+
 using static nanoFramework.Tarantool.Queue.Tests.TestMessage;
 
 namespace nanoFramework.Tarantool.Queue.Tests
@@ -55,13 +54,15 @@ namespace nanoFramework.Tarantool.Queue.Tests
         /// <param name="writeStreamBufferSize">Write buffer size. Default 8192 bytes.</param>
         /// <param name="readStreamBufferSize">Read buffer size. Default 8192 bytes.</param>
         /// <param name="userData">User name and password. Default <see langword="null"/></param>
+        /// <param name="isUseMock">Use Mock <see cref="Tarantool"/> stream. Default <see langword="true"/></param>
         /// <returns>New <see cref="QueueClientOptions"/> instance.</returns>
         internal static QueueClientOptions GetClientOptions(
             bool isReadSchemaOnConnect,
             bool isReadBoxInfoOnConnect,
             int writeStreamBufferSize = 8192,
             int readStreamBufferSize = 8192,
-            string? userData = null)
+            string? userData = null,
+            bool isUseMock = true)
         {
             string replicationSource = $"{Instance.TarantoolHostIp}:3301";
 
@@ -77,12 +78,15 @@ namespace nanoFramework.Tarantool.Queue.Tests
 #if NANOFRAMEWORK_1_0
             clientOptions.ConnectionOptions.WriteStreamBufferSize = writeStreamBufferSize > 512 ? 512 : writeStreamBufferSize;
             clientOptions.ConnectionOptions.ReadStreamBufferSize = readStreamBufferSize > 512 ? 512 : readStreamBufferSize;
-            clientOptions.GetNetworkStream = TarantoolQueueMockContext.Instanse.GetTarantoolStreamMock;
-            
 #else
             clientOptions.ConnectionOptions.WriteStreamBufferSize = writeStreamBufferSize;
             clientOptions.ConnectionOptions.ReadStreamBufferSize = readStreamBufferSize;
 #endif
+            if (isUseMock)
+            {
+                clientOptions.GetNetworkStream = TarantoolQueueMockContext.Instanse.GetTarantoolStreamMock;
+            }
+
             return clientOptions;
         }
     }

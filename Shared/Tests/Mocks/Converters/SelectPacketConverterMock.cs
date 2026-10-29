@@ -3,6 +3,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Converters;
 using nanoFramework.Tarantool.Helpers;
@@ -24,9 +25,9 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                 throw ExceptionHelper.InvalidMapLength(length, 2);
             }
 
-            var uintConverter = ConverterContext.GetConverter(typeof(uint));
-            var keyConverter = uintConverter;
-            var iteratorConverter = uintConverter;
+            var uintConverter = TarantoolContext.Instance.UintConverter;
+            var keyConverter = TarantoolContext.Instance.KeyConverter;
+            var iteratorConverter = keyConverter;
 
             uint spaceId = 0;
             uint indexId = 0;
@@ -57,7 +58,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                         iterator = (Iterator)(iteratorConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
                         break;
                     case Key.Key:
-                        var selectKeyConverter = ConverterContext.GetConverter(typeof(TarantoolTuple));
+                        var selectKeyConverter = ConverterContext.GetConverter(typeof(TarantoolTuple)) ?? throw new ConverterNotFoundException(typeof(TarantoolTuple));
                         selectKey = (TarantoolTuple)(selectKeyConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
                         break;
                 }

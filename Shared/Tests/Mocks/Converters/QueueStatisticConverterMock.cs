@@ -23,7 +23,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
             {
                 writer.WriteMapHeader((uint)statistic.QueueTubesStatistic.Count);
 
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
+                var stringConverter = TarantoolContext.Instance.StringConverter;
 
                 foreach (DictionaryEntry dictionaryEntry in statistic.QueueTubesStatistic)
                 {

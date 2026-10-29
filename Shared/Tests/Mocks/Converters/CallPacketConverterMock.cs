@@ -3,6 +3,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Converters;
 using nanoFramework.Tarantool.Helpers;
@@ -24,9 +25,9 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                 throw ExceptionHelper.InvalidMapLength(length, 2);
             }
 
-            var keyConverter = ConverterContext.GetConverter(typeof(uint));
-            var stringConverter = ConverterContext.GetConverter(typeof(string));
-            var tupleConverter = ConverterContext.GetConverter(typeof(TarantoolTuple));
+            var keyConverter = TarantoolContext.Instance.KeyConverter;
+            var stringConverter = TarantoolContext.Instance.StringConverter;
+            var tupleConverter = ConverterContext.GetConverter(typeof(TarantoolTuple)) ?? throw new ConverterNotFoundException(typeof(TarantoolTuple));
 
             string? functionName = null;
             TarantoolTuple? parameters = null;

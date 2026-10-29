@@ -4,7 +4,6 @@
 using System;
 #endif
 using System.Diagnostics.CodeAnalysis;
-using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Tests.Mocks.Data;
@@ -25,8 +24,8 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
             {
                 writer.WriteMapHeader(2);
 
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
-                var ulongConverter = ConverterContext.GetConverter(typeof(ulong));
+                var stringConverter = TarantoolContext.Instance.StringConverter;
+                var ulongConverter = TarantoolContext.Instance.UlongConverter;
 
                 stringConverter.Write("tasks", writer);
                 writer.WriteMapHeader(6);

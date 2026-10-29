@@ -6,6 +6,7 @@ using System;
 #endif
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Converters;
 using nanoFramework.Tarantool.Model;
@@ -22,9 +23,9 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
             {
                 writer.WriteMapHeader(2);
 
-                var uintConverter = ConverterContext.GetConverter(typeof(uint));
-                var indexPartTypeConverter = ConverterContext.GetConverter(typeof(FieldType));
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
+                var uintConverter = TarantoolContext.Instance.UintConverter;
+                var indexPartTypeConverter = ConverterContext.GetConverter(typeof(FieldType)) ?? throw new ConverterNotFoundException(typeof(FieldType));
+                var stringConverter = TarantoolContext.Instance.StringConverter;
 
                 stringConverter.Write("field", writer);
                 uintConverter.Write(indexPart.FieldNo, writer);

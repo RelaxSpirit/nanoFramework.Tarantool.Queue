@@ -13,6 +13,8 @@ jobs:
   build:
 
     runs-on: windows-latest
+    permissions:
+      id-token: write  # enable GitHub OIDC token issuance for this job
 
     steps:
     - uses: actions/checkout@v4 
@@ -20,21 +22,12 @@ jobs:
         fetch-depth: 0
   
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+      uses: microsoft/setup-msbuild@v3
       with:
         msbuild-architecture: x64
   
-    - name: Download nanoFramework Build component
-      shell: pwsh
-      run: Invoke-WebRequest -Uri https://github.com/nanoframework/nf-Visual-Studio-extension/releases/download/v2022.12.1.49/nanoFramework.Tools.VS2022.Extension.vsix -OutFile C:\Temp\nanoFramework.Tools.VS2022.Extension.zip
-
-    - name: UnZip nanoFramework Build component
-      shell: pwsh
-      run: Expand-Archive -LiteralPath C:\Temp\nanoFramework.Tools.VS2022.Extension.zip -DestinationPath C:\Temp\nf-extension\
-
-    - name: Copy nanoFramework build files to msbuild location
-      shell: pwsh
-      run: Copy-Item -Path "C:\Temp\nf-extension\`$MSBuild\nanoFramework" -Destination "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild" -Recurse
+    - name: .NET nanoFramework build components installer
+      uses: nanoframework/nanobuild@v1.20
 
     - name: Cache nanoFramework NuGet packages
       uses: actions/cache@v4
@@ -54,16 +47,27 @@ jobs:
       run: msbuild /p:Configuration=Release /p:Platform="Any CPU"
 
     - name: nanoFramework Unit Tests
-      uses: CCSWE-nanoFramework/vstest-nanoframework@v1
+      uses: CCSWE-nanoFramework/vstest-nanoframework@v1.0.11
       with:
         runSettings: '.\NFUnitTest\nano.runsettings'
         artifactName: 'unit_test_results'
       
-    # - name: .NET Unit Tests
-    #  run: vstest.console.exe NFUnitTest\bin\Release\NFUnitTest.dll /Settings:NFUnitTest\nano.runsettings
+    #- name: .NET Unit Tests
+    #  uses: microsoft/vstest-action@v1.0.0
+    #  with: 
+    #    testAssembly: Net.Tarantool.Tests.dll
+    #    searchFolder: ./Net.Tarantool.Queue.Tests/bin/Release/net9.0/
+    #    runInParallel: true
 
     - name: Generate a NuGet package
       run: nuget pack nanoFramework.Tarantool.Queue.nuspec -properties version="${{env.NBGV_NuGetPackageVersion}}" -properties commit="${{env.NBGV_GitCommitId}}"
+
+       # Get a short-lived NuGet API key
+    - name: Generate a NuGet key
+      uses: NuGet/login@v1.2.0
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
       
     - name: Push Package to NuGet.org
-      run: nuget push nf.Tarantool.Queue.${{env.NBGV_NuGetPackageVersion}}.nupkg -ApiKey ${{secrets.NUGET_ORG_API_KEY}} -src https://api.nuget.org/v3/index.json
+      run: nuget push nf.Tarantool.Queue.${{env.NBGV_NuGetPackageVersion}}.nupkg -ApiKey ${{steps.login.outputs.NUGET_API_KEY}} -src https://api.nuget.org/v3/index.json

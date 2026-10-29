@@ -6,6 +6,7 @@ using System;
 #endif
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Queue.Model;
 using nanoFramework.Tarantool.Queue.Model.Enums;
@@ -26,10 +27,10 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                 }
 
                 writer.WriteArrayHeader(5u);
-                var intConverter = ConverterContext.GetConverter(typeof(int));
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
-                var queueTypeConverter = ConverterContext.GetConverter(typeof(QueueType));
-                var tubeCreationOptionsConverter = ConverterContext.GetConverter(typeof(TubeCreationOptions));
+                var intConverter = TarantoolContext.Instance.IntConverter;
+                var stringConverter = TarantoolContext.Instance.StringConverter;
+                var queueTypeConverter = ConverterContext.GetConverter(typeof(QueueType)) ?? throw new ConverterNotFoundException(typeof(QueueType));
+                var tubeCreationOptionsConverter = ConverterContext.GetConverter(typeof(TubeCreationOptions)) ?? throw new ConverterNotFoundException(typeof(TubeCreationOptions));
 
                 stringConverter.Write(tubeInfoMock.Name, writer);
                 intConverter.Write(tubeInfoMock.TubeId, writer);

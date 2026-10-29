@@ -132,7 +132,7 @@ namespace nanoFramework.Tarantool.Queue.Client
 
         public QueueTubeStatistic GetStatistics()
         {
-            var responseData = _box.Call(_callStringTable[(int)CallName.GetStatistics], TarantoolTuple.Create(Name), TarantoolContext.Instance.GetTarantoolTupleType(typeof(QueueTubeStatistic)));
+            var responseData = _box.Call(_callStringTable[(int)CallName.GetStatistics], TarantoolTuple.Create(Name), TarantoolContext.GetTarantoolTupleType(typeof(QueueTubeStatistic)));
             if (responseData != null && responseData.Data[0] is TarantoolTuple tarantoolTuple && tarantoolTuple[0] is QueueTubeStatistic queueTubeStatistic)
             {
                 return queueTubeStatistic;
@@ -145,7 +145,7 @@ namespace nanoFramework.Tarantool.Queue.Client
 
         public ulong Kick(ulong count)
         {
-            var responseData = _box.Call(_callStringTable[(int)CallName.Kick], TarantoolTuple.Create(count), TarantoolContext.Instance.GetTarantoolTupleType(typeof(ulong)));
+            var responseData = _box.Call(_callStringTable[(int)CallName.Kick], TarantoolTuple.Create(count), TarantoolContext.GetTarantoolTupleType(typeof(ulong)));
             if (responseData != null && responseData.Data[0] is TarantoolTuple tarantoolTuple)
             {
                 return (ulong)(tarantoolTuple[0] ?? 0);
@@ -165,7 +165,7 @@ namespace nanoFramework.Tarantool.Queue.Client
         {
             CheckTubeType(TubeType, opts);
 
-            var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, data.GetType()));
+            var tupleArrayType = TarantoolContext.GetTarantoolTupleArrayType(TarantoolContext.GetTarantoolTupleType(_taskIdType, _tubeTaskState, data.GetType()));
             
             var responseData = opts != null ? _box.Call(_callStringTable[(int)CallName.Put], TarantoolTuple.Create(data, opts), tupleArrayType) : _box.Call(_callStringTable[(int)CallName.Put], TarantoolTuple.Create(data), tupleArrayType);
             if (responseData != null && responseData.Data[0] is TarantoolTuple tarantoolTuple)
@@ -189,7 +189,7 @@ namespace nanoFramework.Tarantool.Queue.Client
         {
             CheckTubeType(TubeType, opts);
 
-            var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
+            var tupleArrayType = TarantoolContext.GetTarantoolTupleArrayType(TarantoolContext.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
             var responseData = _box.Call(_callStringTable[(int)CallName.Release], TarantoolTuple.Create(taskId, opts), tupleArrayType);
             if (responseData != null && responseData.Data[0] is TarantoolTuple tarantoolTuple)
             {
@@ -212,7 +212,7 @@ namespace nanoFramework.Tarantool.Queue.Client
 
         public TubeTask Take(Type taskDataType)
         {
-            var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
+            var tupleArrayType = TarantoolContext.GetTarantoolTupleArrayType(TarantoolContext.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
             var responseData = _box.Call(_callStringTable[(int)CallName.Take], tupleArrayType);
             if (responseData != null && responseData.Data[0] is TarantoolTuple tarantoolTuple)
             {
@@ -231,7 +231,7 @@ namespace nanoFramework.Tarantool.Queue.Client
 
             CheckTubeType(TubeType, opts);
 
-            var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
+            var tupleArrayType = TarantoolContext.GetTarantoolTupleArrayType(TarantoolContext.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
 
             TarantoolTuple tuple;
 
@@ -256,7 +256,7 @@ namespace nanoFramework.Tarantool.Queue.Client
 
         public TubeTask Touch(Type taskDataType, ulong taskId, TimeSpan delta)
         {
-            var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
+            var tupleArrayType = TarantoolContext.GetTarantoolTupleArrayType(TarantoolContext.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
             var responseData = _box.Call(_callStringTable[(int)CallName.Touch], TarantoolTuple.Create(taskId, (long)delta.TotalSeconds), tupleArrayType);
             if (responseData != null && responseData.Data[0] is TarantoolTuple tarantoolTuple)
             {
@@ -273,7 +273,7 @@ namespace nanoFramework.Tarantool.Queue.Client
 
         private TubeTask GetTubeTask(string callExpression, ulong taskId, Type taskDataType)
         {
-            var tupleArrayType = TarantoolContext.Instance.GetTarantoolTupleArrayType(TarantoolContext.Instance.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
+            var tupleArrayType = TarantoolContext.GetTarantoolTupleArrayType(TarantoolContext.GetTarantoolTupleType(_taskIdType, _tubeTaskState, taskDataType));
             var responseData = _box.Call(callExpression, TarantoolTuple.Create(taskId), tupleArrayType);
             if (responseData != null && responseData.Data[0] is TarantoolTuple tarantoolTuple)
             {
