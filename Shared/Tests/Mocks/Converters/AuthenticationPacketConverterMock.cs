@@ -23,9 +23,9 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                 throw ExceptionHelper.InvalidMapLength(length, 2);
             }
 
-            var keyConverter = ConverterContext.GetConverter(typeof(uint));
-            var bytesConverter = ConverterContext.GetConverter(typeof(byte[]));
-            var stringConverter = ConverterContext.GetConverter(typeof(string));
+            var keyConverter = TarantoolContext.Instance.KeyConverter;
+            var bytesConverter = TarantoolContext.Instance.BytesConverter;
+            var stringConverter = TarantoolContext.Instance.StringConverter;
 
             string? userName = null;
             byte[] scramble = new byte[0];

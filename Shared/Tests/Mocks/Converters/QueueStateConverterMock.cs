@@ -19,7 +19,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
         {
             if (value is QueueState queueState)
             {
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
+                var stringConverter = TarantoolContext.Instance.StringConverter;
 
                 switch (queueState)
                 {

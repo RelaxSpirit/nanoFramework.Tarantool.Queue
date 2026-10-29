@@ -6,9 +6,11 @@ using System;
 #endif
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Client.Interfaces;
 using nanoFramework.Tarantool.Converters;
+using nanoFramework.Tarantool.Model;
 using nanoFramework.Tarantool.Model.Enums;
 using nanoFramework.Tarantool.Tests.Mocks.Data;
 
@@ -23,11 +25,11 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
             {
                 writer.WriteArrayHeader(6);
 
-                var uintConverter = ConverterContext.GetConverter(typeof(uint));
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
-                var indexTypeConverter = ConverterContext.GetConverter(typeof(IndexType));
-                var optionsConverter = ConverterContext.GetConverter(typeof(IndexCreationOptionsMock));
-                var indexPartsConverter = ConverterContext.GetConverter(typeof(IndexPartMock[]));
+                var uintConverter = TarantoolContext.Instance.UintConverter;
+                var stringConverter = TarantoolContext.Instance.StringConverter;
+                var indexTypeConverter = ConverterContext.GetConverter(typeof(IndexType)) ?? throw new ConverterNotFoundException(typeof(IndexType));
+                var optionsConverter = ConverterContext.GetConverter(typeof(IndexCreationOptionsMock)) ?? throw new ConverterNotFoundException(typeof(IndexCreationOptionsMock));
+                var indexPartsConverter = ConverterContext.GetConverter(typeof(IndexPartMock[])) ?? throw new ConverterNotFoundException(typeof(IndexPartMock[]));
 
                 uintConverter.Write(index.SpaceId, writer);
                 uintConverter.Write(index.Id, writer);

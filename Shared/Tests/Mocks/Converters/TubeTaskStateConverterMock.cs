@@ -5,7 +5,6 @@
 using System;
 #endif
 using System.Diagnostics.CodeAnalysis;
-using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Queue.Converters;
 using nanoFramework.Tarantool.Queue.Model.Enums;
@@ -19,7 +18,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
         {
             if (value is TubeTaskState tubeTaskState)
             {
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
+                var stringConverter = TarantoolContext.Instance.StringConverter;
 
                 switch (tubeTaskState)
                 {

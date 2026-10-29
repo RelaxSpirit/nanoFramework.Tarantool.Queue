@@ -3,6 +3,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Converters;
 using nanoFramework.Tarantool.Helpers;
@@ -24,9 +25,9 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                 throw ExceptionHelper.InvalidMapLength(length, 2);
             }
 
-            var keyConverter = ConverterContext.GetConverter(typeof(uint));
-            var requestIdConverter = ConverterContext.GetConverter(typeof(RequestId));
-            var codeConverter = ConverterContext.GetConverter(typeof(uint));
+            var keyConverter = TarantoolContext.Instance.KeyConverter;
+            var requestIdConverter = ConverterContext.GetConverter(typeof(RequestId)) ?? throw new ConverterNotFoundException(typeof(RequestId));
+            var codeConverter = TarantoolContext.Instance.UintConverter;
 
             CommandCode commandCode = CommandCode._;
             RequestId requestId = RequestId.Empty;

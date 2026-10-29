@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Helpers;
 using nanoFramework.Tarantool.Queue.Converters;
@@ -18,7 +19,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
         {
             var length = reader.ReadMapLength();
 
-            var hashtableConverter = ConverterContext.GetConverter(typeof(Hashtable));
+            var hashtableConverter = ConverterContext.GetConverter(typeof(Hashtable)) ?? throw new ConverterNotFoundException(typeof(Hashtable));
             var htOptions = (Hashtable)(hashtableConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
 
             PuttingCustomTubeOptions options = new PuttingCustomTubeOptions();

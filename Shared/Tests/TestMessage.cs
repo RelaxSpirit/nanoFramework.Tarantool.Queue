@@ -9,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
 using nanoFramework.MessagePack.Dto;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Helpers;
 #if NANOFRAMEWORK_1_0
@@ -53,7 +54,7 @@ namespace nanoFramework.Tarantool.Queue.Tests
             public object? Read([NotNull] IMessagePackReader reader)
             {
                 var length = reader.ReadMapLength();
-                var stringConverter = ConverterContext.GetConverter(typeof(string));
+                var stringConverter = TarantoolContext.Instance.StringConverter;
                 TestMessage testMessage = new TestMessage();
 
                 for (int i  = 0; i < length; i++)
@@ -66,10 +67,10 @@ namespace nanoFramework.Tarantool.Queue.Tests
                             testMessage.MessageData = (string)(stringConverter.Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
                             break;
                         case "SendDateTime":
-                            testMessage.SendDateTime = (DateTime)(ConverterContext.GetConverter(typeof(DateTime)).Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
+                            testMessage.SendDateTime = (DateTime)((ConverterContext.GetConverter(typeof(DateTime)) ?? throw new ConverterNotFoundException(typeof(DateTime))).Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
                             break;
                         case "MessageGuid":
-                            testMessage.MessageGuid = (Guid)(ConverterContext.GetConverter(typeof(Guid)).Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
+                            testMessage.MessageGuid = (Guid)((ConverterContext.GetConverter(typeof(Guid)) ?? throw new ConverterNotFoundException(typeof(Guid))).Read(reader) ?? throw ExceptionHelper.ActualValueIsNullReference());
                             break;
                         default:
                             reader.SkipToken();
@@ -85,16 +86,16 @@ namespace nanoFramework.Tarantool.Queue.Tests
                 if (value is TestMessage testMessage)
                 {
                     writer.WriteMapHeader(3);
-                    var stringConverter = ConverterContext.GetConverter(typeof(string));
+                    var stringConverter = TarantoolContext.Instance.StringConverter;
 
                     stringConverter.Write("MessageData", writer);
                     stringConverter.Write(testMessage.MessageData, writer);
 
                     stringConverter.Write("SendDateTime", writer);
-                    ConverterContext.GetConverter(typeof(DateTime)).Write(testMessage.SendDateTime, writer);
+                    (ConverterContext.GetConverter(typeof(DateTime)) ?? throw new ConverterNotFoundException(typeof(DateTime))).Write(testMessage.SendDateTime, writer);
 
                     stringConverter.Write("MessageGuid", writer);
-                    ConverterContext.GetConverter(typeof(Guid)).Write(testMessage.MessageGuid, writer);
+                    (ConverterContext.GetConverter(typeof(Guid)) ?? throw new ConverterNotFoundException(typeof(Guid))).Write(testMessage.MessageGuid, writer);
                 }
             }
         }

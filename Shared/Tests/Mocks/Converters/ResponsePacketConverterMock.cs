@@ -7,8 +7,10 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using nanoFramework.MessagePack;
 using nanoFramework.MessagePack.Converters;
+using nanoFramework.MessagePack.Exceptions;
 using nanoFramework.MessagePack.Stream;
 using nanoFramework.Tarantool.Converters;
+using nanoFramework.Tarantool.Model;
 using nanoFramework.Tarantool.Model.Enums;
 using nanoFramework.Tarantool.Model.Responses;
 using nanoFramework.Tarantool.Tests.Mocks.Data;
@@ -18,14 +20,6 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
     internal class ResponsePacketConverterMock : ResponsePacketConverter
     {
 #nullable enable
-        internal ResponsePacketConverterMock() : base(typeof(ResponsePacketConverterMock))
-        { 
-        }
-
-        internal ResponsePacketConverterMock(Type dataType) : base(dataType)
-        {
-        }
-
         public override void Write(object? value, [NotNull] IMessagePackWriter writer)
         {
             if (value is DataResponseMock dataResponse)
@@ -53,12 +47,12 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                     }
                 }
 
-                var keyConverter = ConverterContext.GetConverter(typeof(uint));
+                var keyConverter = TarantoolContext.Instance.KeyConverter;
 
                 if (dataResponse.TestData != null)
                 {
                     keyConverter.Write(Key.Data, writer);
-                    ConverterContext.GetConverter(dataResponse.TestData.GetType()).Write(dataResponse.TestData, writer);
+                    (ConverterContext.GetConverter(dataResponse.TestData.GetType()) ?? throw new ConverterNotFoundException(dataResponse.TestData.GetType())).Write(dataResponse.TestData, writer);
                 }
 
                 if (dataResponse.MetaData.Length > 0)
@@ -73,7 +67,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
                         keyConverter.Write(Key.SqlInfo_2_0_4, writer);
                         writer.WriteMapHeader(1);
                         keyConverter.Write(Key.SqlRowCount_2_0_4, writer);
-                        ConverterContext.GetConverter(typeof(int)).Write(dataResponse.SqlInfo.RowCount, writer);
+                        TarantoolContext.Instance.IntConverter.Write(dataResponse.SqlInfo.RowCount, writer);
                     }
                 }
             }
@@ -87,7 +81,7 @@ namespace nanoFramework.Tarantool.Tests.Mocks.Converters
         {
             writer.WriteArrayHeader((uint)fieldMetadata.Length);
 
-            var stringConverter = ConverterContext.GetConverter(typeof(string));
+            var stringConverter = TarantoolContext.Instance.StringConverter;
 
             foreach (var metaData in fieldMetadata)
             {
